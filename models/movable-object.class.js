@@ -11,6 +11,7 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    energy = 100;
 
     applyGravity() {
         // Funktion, die die Schwerkraft auf das Objekt anwendet
@@ -41,12 +42,41 @@ class MovableObject {
     }
 
     drawFrame(ctx){
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+        if (this instanceof Character || this instanceof Chicken) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
     }
+
+    // // Bessere Formel zur Kollisionsberechnung (Genauer)
+    // isColliding (mo) {
+    //     return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && 
+    //             (this.y + this.offsetY + this.height) >= mo.y &&
+    //             (this.y + this.offsetY) <= (mo.y + mo.height) && 
+    //             mo.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    //     }
+
+        isColliding (mo) {
+            return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
+        }
+
+        hit() {
+            this.energy -= 5;
+            if (this.energy < 0) {
+                this.energy = 0;
+            }
+        }
+
+
+        isDead() {
+            return this.energy == 0;
+        }
 
     /**
      * 
