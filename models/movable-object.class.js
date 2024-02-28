@@ -13,6 +13,8 @@ class MovableObject {
     acceleration = 2.5;
     energy = 100;
 
+    lastHit = 0;
+
     applyGravity() {
         // Funktion, die die Schwerkraft auf das Objekt anwendet
         // Diese Funktion wird in regelmäßigen Intervallen ausgeführt
@@ -70,9 +72,16 @@ class MovableObject {
             this.energy -= 5;
             if (this.energy < 0) {
                 this.energy = 0;
+            } else {
+                this.lastHit = new Date().getTime();
             }
         }
 
+        isHurt() {
+            let timepassed = new Date().getTime() - this.lastHit; // differcence in ms
+            timepassed = timepassed / 1000; // difference in s
+            return timepassed < 1;
+        }
 
         isDead() {
             return this.energy == 0;
