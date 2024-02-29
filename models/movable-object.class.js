@@ -1,12 +1,5 @@
-class MovableObject {
-    x = 120;
-    y = 280;
-    img;
-    height = 150;
-    width = 100;
+class MovableObject extends DrawableObject {
 
-    imageCache = {};
-    currentImage = 0;
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -33,15 +26,6 @@ class MovableObject {
         return this.y < 180
     }
     
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
 
     drawFrame(ctx){
         if (this instanceof Character || this instanceof Chicken) {
@@ -86,19 +70,6 @@ class MovableObject {
         isDead() {
             return this.energy == 0;
         }
-
-    /**
-     * 
-     * @param {Array} arr - ['img/image1.png','img/image2.png', ...]
-     */
-
-    loadImages(arr){ 
-        arr.forEach((path) => { // vorschleife durch die pfade 
-            let img = new Image(); // Variable für neues Bild
-            img.src = path; // Bild wird geladen
-            this.imageCache[path] = img;
-        })
-    }
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 0 % 6; => 0, Rest 0
