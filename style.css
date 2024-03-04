@@ -1,7 +1,21 @@
+@font-face {
+    font-family: 'zabars';
+    src: url('fonts/zabars.ttf');
+}
+
 body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url(img/desertBG.png);
+    background-position: center;
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    letter-spacing: 6px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 canvas {
