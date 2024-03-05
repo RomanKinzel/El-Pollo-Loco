@@ -40,7 +40,7 @@ class Character extends MovableObject {
     "img/2_character_pepe/4_hurt/H-43.png"
   ];
 
-  world;
+  world; // Referenz auf die Spielwelt, in der sich der Charakter befindet
   walking_sound = new Audio("audio/running.mp3");
 
   constructor() {
@@ -49,37 +49,36 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_JUMP);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
-    this.applyGravity();
-    this.animate();
+    this.applyGravity(); // Schwerkraft auf den Charakter anwenden
+    this.animate(); // Animation des Charakters starten
   }
 
   animate() {
-    setInterval(() => {
+    setInterval(() => {     // Interval für die Bewegungsanimation des Charakters
       this.walking_sound.pause();
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {       // Wenn die rechte Pfeiltaste gedrückt ist und der Charakter sich noch nicht am Ende des Levels befindet
         this.moveRight();
-        this.otherDirection = false;
+        this.otherDirection = false; // Charakter schaut nach rechts
         this.walking_sound.play();
 
       }
 
-      if (this.world.keyboard.LEFT && this.x > 0) {
+      if (this.world.keyboard.LEFT && this.x > 0) {       // Wenn die linke Pfeiltaste gedrückt ist und der Charakter sich noch nicht am Anfang des Levels befindet
         this.moveLeft();
-        this.otherDirection = true;
+        this.otherDirection = true; // Charakter schaut nach links
         this.walking_sound.play();
       }
 
       // console.log('this.speedY', this.speedY)
 
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+      if (this.world.keyboard.SPACE && !this.isAboveGround()) { // Wenn die Leertaste gedrückt ist und der Charakter nicht in der Luft ist
         this.jump();
       }
 
-      this.world.camera_x = -this.x + 100;
+      this.world.camera_x = -this.x + 100;       // Kameraposition aktualisieren, um dem Charakter zu folgen
     }, 1000 / 60);
 
-    setInterval(() => {
-
+    setInterval(() => {     // Interval für die Animation des Charakterzustands
       if(this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);        
       } else if (this.isHurt()) {

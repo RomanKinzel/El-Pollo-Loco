@@ -1,21 +1,16 @@
 let canvas;
 let world;
-let keyboard = new Keyboard();
+let keyboard = new Keyboard(); // Tastatur-Objekt erstellen
 
 function init(){
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+    canvas = document.getElementById('canvas'); // Das Canvas-Element im HTML-Dokument finden
+    world = new World(canvas, keyboard); // Eine Spielwelt erstellen, die das Canvas und die Tastatur verwendet
     
     // console.log('My Character is', world.character)
     // console.log('My Chicken is', world.enemies)
 
 
 }
-
-
-
-
-
 
 window.addEventListener('keydown', (e) => {
     if(e.keyCode == 39){

@@ -22,28 +22,28 @@ class Endboss extends MovableObject {
     "img/4_enemie_boss_chicken/1_walk/G4.png"
   ];
 
-  hadFirstContact = false;
+  hadFirstContact = false; // Variable zur Verfolgung, ob der Spieler den Endboss zum ersten Mal erreicht hat
 
   constructor() {
-    super().loadImage(this.IMAGES_ALERT[0]);
+    super().loadImage(this.IMAGES_ALERT[0]); // Bild des Endbosses im Alarmzustand laden
     this.loadImages(this.IMAGES_ALERT);
     this.loadImages(this.IMAGES_WALK);
-    this.x = 2500;
-    this.animate();
+    this.x = 2500; // Startposition des Endbosses
+    this.animate(); // Animation des Endbosses starten
   }
 
   animate() {
-    let i = 0;
+    let i = 0; // Variable zur Verfolgung des aktuellen Bildindex
     setInterval(() => {
       if ( i < 8) {
-        this.playAnimation(this.IMAGES_ALERT);
+        this.playAnimation(this.IMAGES_ALERT); // Wenn der Endboss im Alarmzustand ist, Alarmbildanimation abspielen
       } else {
-        this.playAnimation(this.IMAGES_WALK);
+        this.playAnimation(this.IMAGES_WALK);  // Ansonsten Gehbildanimation abspielen
       }
       i++;
-      if (world.character.x > 2000 && !this.hadFirstContact) {
-        i = 0;
-        this.hadFirstContact = true;
+      if (world.character.x > 2000 && !this.hadFirstContact) { // Überprüfen, ob der Spieler den Endboss zum ersten Mal erreicht hat
+        i = 0; // Bildindex zurücksetzen, um die Alarmanimation erneut abzuspielen
+        this.hadFirstContact = true; // Flag setzen, um anzuzeigen, dass der erste Kontakt stattgefunden hat
       }
       // console.log(world.character.x)
     }, 200);

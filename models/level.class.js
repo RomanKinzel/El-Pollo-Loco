@@ -1,12 +1,13 @@
 class Level {
-    enemies;
-    clouds;
-    backgroundObject;
-    level_end_x = 2200;
+    enemies; // Eine Liste von Feinden im Level
+    clouds; // Eine Liste von Wolken im Level
+    backgroundObject; // Ein Hintergrundobjekt im Level
+    level_end_x = 2600; // Die x-Position, die das Ende des Levels definiert
 
+    // Konstruktor für die Levelklasse
     constructor(enemies, clouds, backgroundObject){
-        this.enemies = enemies;
-        this.clouds = clouds;
-        this.backgroundObject = backgroundObject;
+        this.enemies = enemies; // Setzen der Feinde des Levels
+        this.clouds = clouds; // Setzen der Wolken des Levels
+        this.backgroundObject = backgroundObject; // Setzen des Hintergrundobjekts des Levels
     }
 }

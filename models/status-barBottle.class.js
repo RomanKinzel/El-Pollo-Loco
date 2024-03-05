@@ -14,6 +14,6 @@ class BarBottle extends StatusBar {
         this.loadImages(this.IMAGES_BAR);
         this.x = 30;
         this.y = 100;
-        this.setPercentage(0);
+        this.setPercentage(0);  // Initialisieren der Flaschenleiste mit 0% Prozentsatz
     }
 }

@@ -9,42 +9,42 @@ class World {
     statusBarLife = new BarLife();
     statusBarCoin = new BarCoin();
     statusBarBottle = new BarBottle();
-    throwableObjects = [];
+    throwableObjects = []; // Eine Liste von werfbaren Objekten
 
 
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
-        this.canvas = canvas;
-        this.keyboard = keyboard;
-        this.draw();
-        this.setWorld();
-        this.run();
+        this.ctx = canvas.getContext('2d'); // Canvas-Kontext erhalten
+        this.canvas = canvas; // Canvas-Element speichern
+        this.keyboard = keyboard; // Tastatureingaben speichern
+        this.draw(); // Spiel zeichnen
+        this.setWorld(); // Welt initialisieren
+        this.run(); // Spiel ausführen
     }
 
-    setWorld(){
-        this.character.world = this;
+    setWorld(){  // Methode zur Initialisierung der Welt
+        this.character.world = this; // Weltreferenz für den Charakter setzen
     }
 
-    run() {
-        setInterval(() => {
-            this.checkCollisions();
-            this.checkThrowObjects();
+    run() { // Methode zur Ausführung des Spiels
+        setInterval(() => { // Intervall für Kollisionsprüfung und Wurfbare-Objekte-Prüfung festlegen
+            this.checkCollisions(); // Kollisionen überprüfen
+            this.checkThrowObjects(); // Wurfbare Objekte überprüfen
         }, 200);
     }
 
-    checkThrowObjects(){
+    checkThrowObjects(){ // Methode zur Überprüfung, ob wurfbare Objekte geworfen werden sollen
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
-            this.throwableObjects.push(bottle);
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100) // Neue Flasche erzeugen
+            this.throwableObjects.push(bottle); // Flasche zur Liste der wurfbaren Objekte hinzufügen
         }
     }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy) => {  // Überprüfen, ob der Charakter mit einem Feind kollidiert
             if( this.character.isColliding(enemy) ) {
-             this.character.hit();
-             this.statusBarLife.setPercentage(this.character.energy);
-             console.log('Collision with Character, energy ', this.character.energy);
+             this.character.hit(); // Charakter wird getroffen
+             this.statusBarLife.setPercentage(this.character.energy); // Lebensanzeige aktualisieren
+             console.log('Collision with Character, energy ', this.character.energy); 
             }
          });
     }
@@ -55,12 +55,13 @@ class World {
 
         this.ctx.translate(this.camera_x, 0); // translate verschiebt das Bild nach links
         this.addObjectsToMap(this.level.backgroundObject);
-
         this.ctx.translate(-this.camera_x, 0); // Back ------- Space for fixed objects ------
+
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
+
         this.ctx.translate(this.camera_x, 0); // Forwards
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
@@ -74,23 +75,20 @@ class World {
         });
     }
 
-    addObjectsToMap(objects){
+    addObjectsToMap(objects){ // Methode zum Hinzufügen von Objekten zur Karte
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
 
-    addToMap(mo){
-
-        if (mo.otherDirection) {
+    addToMap(mo){ // Methode zum Hinzufügen eines Objekts zur Karte
+        if (mo.otherDirection) {  // Bild spiegeln, falls erforderlich
            this.flipImage(mo);
         }
-
+        // Objekt zeichnen und Rahmen zeichnen
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx)
-
-
-
+        // Bild zurückspiegeln, falls erforderlich
         if (mo.otherDirection) {
            this.flipImageBack(mo);
         }
@@ -107,7 +105,5 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
-    }
-
-    
+    } 
 }
