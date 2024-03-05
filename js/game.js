@@ -6,10 +6,16 @@ function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     
-    console.log('My Character is', world.character)
-    console.log('My Chicken is', world.enemies)
+    // console.log('My Character is', world.character)
+    // console.log('My Chicken is', world.enemies)
+
 
 }
+
+
+
+
+
 
 window.addEventListener('keydown', (e) => {
     if(e.keyCode == 39){
@@ -31,7 +37,7 @@ window.addEventListener('keydown', (e) => {
         keyboard.D = true;
     }
 
-    console.log(e);
+    // console.log(e);
 });
 
 window.addEventListener('keyup', (e) => {

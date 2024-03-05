@@ -6,7 +6,7 @@
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     min-height: 100vh;
     margin: 0;
@@ -23,6 +23,28 @@ canvas {
     display: block;
 }
 
+.panelHeader {
+    display: block;
+    flex-direction: column-reverse;
+    position: fixed;
+    bottom: 20vh;
+    right: 50vw;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+img {
+    height: 64px;
+    width: 64px;
+}
+
+
+
+.panelBottom {
+    display: none;
+}
+
 @media only screen and (max-width: 720px) {
     canvas {
         width: 100%;
@@ -36,6 +58,37 @@ canvas {
      
     h1 { 
         display: none;
+    }
+
+    .panelHeader {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 10ch;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+    }
+
+    img {
+        height: 64px;
+        width: 64px;
+    }
+
+    .panelBottom {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        justify-content: space-around;
+        gap: 40vw;
+    }
+
+    button {
+        height: 48px;
+        width: 48px;
+        border-radius: 35px;
+        background-color: orange;
+        font-size: 28px;
     }
     
 }

@@ -6,6 +6,9 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    statusBarLife = new BarLife();
+    statusBarCoin = new BarCoin();
+    statusBarBottle = new BarBottle();
     throwableObjects = [];
 
 
@@ -40,7 +43,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if( this.character.isColliding(enemy) ) {
              this.character.hit();
-             this.statusBar.setPercentage(this.character.energy);
+             this.statusBarLife.setPercentage(this.character.energy);
              console.log('Collision with Character, energy ', this.character.energy);
             }
          });
@@ -55,6 +58,9 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0); // Back ------- Space for fixed objects ------
         this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarLife);
+        this.addToMap(this.statusBarCoin);
+        this.addToMap(this.statusBarBottle);
         this.ctx.translate(this.camera_x, 0); // Forwards
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
