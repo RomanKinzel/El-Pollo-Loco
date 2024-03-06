@@ -6,6 +6,7 @@ class DrawableObject {
     y = 280;
     height = 150;
     width = 100;
+  
 
 
     loadImage(path) {     // Methode zum Laden eines Bildes aus dem angegebenen Pfad
@@ -23,13 +24,23 @@ class DrawableObject {
     }
 
     // Methode zum Zeichnen des Rahmens des Objekts auf dem Canvas (falls erforderlich)
-    drawFrame(ctx){ 
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject) { // Wenn das Objekt ein Charakter oder ein Chicken ist
-            ctx.beginPath(); // Neuen Pfad beginnen
-            ctx.lineWidth = '5'; // Linienbreite festlegen
-            ctx.strokeStyle = 'blue'; // Rahmenfarbe festlegen
-            ctx.rect(this.x, this.y, this.width, this.height); // Rechteck um das Objekt zeichnen
-            ctx.stroke(); // Rahmen zeichnen
+    // drawFrame(ctx){ 
+    //     if ( this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject) { // Wenn das Objekt ein Charakter oder ein Chicken ist
+    //         ctx.beginPath(); // Neuen Pfad beginnen
+    //         ctx.lineWidth = '5'; // Linienbreite festlegen
+    //         ctx.strokeStyle = 'blue'; // Rahmenfarbe festlegen
+    //         ctx.rect(this.x, this.y, this.width, this.height); // Rechteck um das Objekt zeichnen
+    //         ctx.stroke(); // Rahmen zeichnen
+    //     }
+    // }
+
+    drawCollisonFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - (this.offset.right + this.offset.left), this.height - (this.offset.bottom + this.offset.top));
+            ctx.stroke();
         }
     }
 

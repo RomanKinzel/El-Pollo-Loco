@@ -9,6 +9,7 @@ class World {
     statusBarLife = new BarLife();
     statusBarCoin = new BarCoin();
     statusBarBottle = new BarBottle();
+    statusBarEndboss = new BarEndboss();
     throwableObjects = []; // Eine Liste von werfbaren Objekten
 
 
@@ -28,6 +29,7 @@ class World {
     run() { // Methode zur Ausführung des Spiels
         setInterval(() => { // Intervall für Kollisionsprüfung und Wurfbare-Objekte-Prüfung festlegen
             this.checkCollisions(); // Kollisionen überprüfen
+            this.checkCollisionsEndboss();
             this.checkThrowObjects(); // Wurfbare Objekte überprüfen
         }, 200);
     }
@@ -49,6 +51,15 @@ class World {
          });
     }
 
+    checkCollisionsEndboss() {
+        // Überprüfen, ob der Charakter mit dem Endboss kollidiert
+        if (this.character.isColliding(this.level.enemies[3])) {
+            this.level.enemies[3].hit(); // Endboss wird getroffen
+            this.statusBarEndboss.setPercentage(this.level.enemies[3].energy); // Lebensanzeige des Endboss aktualisieren
+            console.log('Collision with Endboss, energy ', this.level.enemies[3].energy); 
+        }
+    }
+
 
     draw() {
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height); // leert das canvas
@@ -61,6 +72,8 @@ class World {
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarEndboss);
+
 
         this.ctx.translate(this.camera_x, 0); // Forwards
         this.addToMap(this.character);
@@ -87,7 +100,8 @@ class World {
         }
         // Objekt zeichnen und Rahmen zeichnen
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx)
+        // mo.drawFrame(this.ctx);
+        mo.drawCollisonFrame(this.ctx);
         // Bild zurückspiegeln, falls erforderlich
         if (mo.otherDirection) {
            this.flipImageBack(mo);

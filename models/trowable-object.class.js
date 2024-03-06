@@ -6,6 +6,12 @@ class ThrowableObject extends MovableObject {
         this.y = y; // Setzen der y-Position des Objekts
         this.height = 90;
         this.width = 70;
+        this.offset = {
+            top: 0,
+            left: 20,
+            right: 20,
+            bottom: 5,
+        };
         this.trow(); // Funktion zum Ausführen des Wurfes aufrufen
     }
 
