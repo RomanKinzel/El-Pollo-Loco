@@ -13,7 +13,7 @@ class BarCoin extends StatusBar {
         super().loadImage(this.IMAGES_BAR[0]);
         this.loadImages(this.IMAGES_BAR);
         this.x = 30;
-        this.y = 50;
+        this.y = 30;
         this.setPercentage(0);
     }
 }

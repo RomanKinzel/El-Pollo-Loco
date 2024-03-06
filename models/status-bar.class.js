@@ -1,6 +1,6 @@
 class StatusBar extends DrawableObject {
-    width = 200; // Breite der Statusleiste
-    height = 60; // Höhe der Statusleiste                          
+    width = 150; // Breite der Statusleiste
+    height = 40; // Höhe der Statusleiste                          
     percentage = 100; // Prozentsatz der Statusleiste (anfänglich auf 100% gesetzt)
 
 

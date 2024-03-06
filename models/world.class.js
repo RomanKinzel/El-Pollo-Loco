@@ -29,8 +29,8 @@ class World {
     run() { // Methode zur Ausführung des Spiels
         setInterval(() => { // Intervall für Kollisionsprüfung und Wurfbare-Objekte-Prüfung festlegen
             this.checkCollisions(); // Kollisionen überprüfen
-            this.checkCollisionsEndboss();
             this.checkThrowObjects(); // Wurfbare Objekte überprüfen
+            this.checkCollisionsEndboss();
         }, 200);
     }
 
@@ -51,15 +51,37 @@ class World {
          });
     }
 
-    checkCollisionsEndboss() {
-        // Überprüfen, ob der Charakter mit dem Endboss kollidiert
-        if (this.character.isColliding(this.level.enemies[3])) {
-            this.level.enemies[3].hit(); // Endboss wird getroffen
-            this.statusBarEndboss.setPercentage(this.level.enemies[3].energy); // Lebensanzeige des Endboss aktualisieren
-            console.log('Collision with Endboss, energy ', this.level.enemies[3].energy); 
-        }
-    }
+    // checkCollisionsEndboss() {
+    //     // Überprüfen, ob der Charakter mit dem Endboss kollidiert
+    //     if (this.throwableObjects.isColliding(this.level.enemies[3])) {
+    //         this.level.enemies[3].hit(); // Endboss wird getroffen
+    //         this.statusBarEndboss.setPercentage(this.level.enemies[3].energy); // Lebensanzeige des Endboss aktualisieren
+    //         console.log('Collision with Endboss, energy ', this.level.enemies[3].energy); 
+    //     }
+    // }
 
+    checkCollisionsEndboss() {
+        // Überprüfen, ob eine werfbare Flasche mit dem Endboss kollidiert
+        this.throwableObjects.forEach((bottle) => {
+            if (bottle.isColliding(this.level.enemies[3])) {
+                this.level.enemies[3].hit(); // Endboss wird getroffen
+                this.statusBarEndboss.setPercentage(this.level.enemies[3].energy); // Lebensanzeige des Endboss aktualisieren
+                console.log('Collision with Endboss, energy ', this.level.enemies[3].energy); 
+            }
+        });
+    }
+    // checkCollisionsEndboss() {
+    //     if (this.level.enemies[3]) { // Überprüfen, ob das Endboss-Objekt existiert
+    //         // Überprüfen, ob eine werfbare Flasche mit dem Endboss kollidiert
+    //         this.throwableObjects.forEach((bottle) => {
+    //             if (bottle.isColliding(this.level.enemies[3])) {
+    //                 this.level.enemies[3].hit(); // Endboss wird getroffen
+    //                 this.statusBarEndboss.setPercentage(this.level.enemies[3].energy); // Lebensanzeige des Endboss aktualisieren
+    //                 console.log('Collision with Endboss, energy ', this.level.enemies[3].energy); 
+    //             }
+    //         });
+    //     }
+    // }
 
     draw() {
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height); // leert das canvas
@@ -68,12 +90,6 @@ class World {
         this.addObjectsToMap(this.level.backgroundObject);
         this.ctx.translate(-this.camera_x, 0); // Back ------- Space for fixed objects ------
 
-        this.addToMap(this.statusBar);
-        this.addToMap(this.statusBarLife);
-        this.addToMap(this.statusBarCoin);
-        this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarEndboss);
-
 
         this.ctx.translate(this.camera_x, 0); // Forwards
         this.addToMap(this.character);
@@ -81,6 +97,13 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0); // translate verschiebt den Ausschnitt wieder nach rechts
+        
+        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarLife);
+        this.addToMap(this.statusBarCoin);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarEndboss);
+
         // draw() wird immer wieder aufgerufen
         let self = this;
         requestAnimationFrame(function() {

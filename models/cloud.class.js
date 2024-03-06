@@ -5,11 +5,13 @@ class Cloud extends MovableObject {
     
     constructor(){
         super().loadImage('img/5_background/layers/4_clouds/1.png');
-        this.x = Math.random() * 500; // Zufällige x-Position zwischen 0 und 500 festlegen
+        this.x = Math.random() * 2500; // Zufällige x-Position zwischen 0 und 500 festlegen
         this.animate();
     }
 
     animate() { // Wolken bewegen sich alle 1000ms (60FPS)
-        this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60)
     }
 }

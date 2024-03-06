@@ -32,7 +32,14 @@ class Endboss extends MovableObject {
     "img/4_enemie_boss_chicken/4_hurt/G21.png",
     "img/4_enemie_boss_chicken/4_hurt/G22.png",
     "img/4_enemie_boss_chicken/4_hurt/G23.png"
-  ]
+  ];
+
+  IMAGES_DEAD = [
+    "img/4_enemie_boss_chicken/5_dead/G24.png",
+    "img/4_enemie_boss_chicken/5_dead/G25.png",
+    "img/4_enemie_boss_chicken/5_dead/G26.png",
+
+  ];
 
   hadFirstContact = false; // Variable zur Verfolgung, ob der Spieler den Endboss zum ersten Mal erreicht hat
 
@@ -41,6 +48,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ALERT);
     this.loadImages(this.IMAGES_WALK);
     this.loadImages(this.IMAGES_HURT);
+    this.loadImages(this.IMAGES_DEAD);
     this.x = 2500; // Startposition des Endbosses
     this.animate(); // Animation des Endbosses starten
   }
@@ -48,7 +56,9 @@ class Endboss extends MovableObject {
   animate() {
     let i = 0; // Variable zur Verfolgung des aktuellen Bildindex
     setInterval(() => {
-      if ( i < 8) {
+      if(this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);        
+      } else if ( i < 8) {
         this.playAnimation(this.IMAGES_ALERT); // Wenn der Endboss im Alarmzustand ist, Alarmbildanimation abspielen
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
