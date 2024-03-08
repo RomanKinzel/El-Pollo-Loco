@@ -10,6 +10,8 @@ class Character extends MovableObject {
     bottom: 5,
   }; 
 
+  energy = 100;
+
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
     "img/2_character_pepe/2_walk/W-22.png",

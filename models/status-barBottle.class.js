@@ -9,11 +9,22 @@ class BarBottle extends StatusBar {
     ];
 
 
+    energy = 0;
+
     constructor(){
         super().loadImage(this.IMAGES_BAR[0]);
         this.loadImages(this.IMAGES_BAR);
         this.x = 30;
         this.y = 60;
         this.setPercentage(0);  // Initialisieren der Flaschenleiste mit 0% Prozentsatz
+    }
+
+    increaseEnergy(amount) {
+        this.energy += amount;
+        // Sicherstellen, dass die Energie innerhalb des zulässigen Bereichs bleibt (0-100)
+        if (this.energy > 100) {
+            this.energy = 100;
+        }
+        this.setPercentage(this.energy);
     }
 }

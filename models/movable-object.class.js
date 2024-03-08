@@ -4,9 +4,13 @@ class MovableObject extends DrawableObject {
     otherDirection = false; // Variable zur Verfolgung der Bewegungsrichtung
     speedY = 0; // Die vertikale Geschwindigkeit des Objekts
     acceleration = 2.5; // Die Beschleunigung des Objekts
-    energy = 100; // Die Energie oder Lebenspunkte des Objekts
+    energy = 0; // Die Energie oder Lebenspunkte des Objekts
 
-    lastHit = 0; // Zeitstempel der letzten Kollision
+    constructor() {
+        super(); // Aufruf des Konstruktors der übergeordneten Klasse
+        this.lastHit = 0; // Initialisierung von lastHit auf 0
+    }
+
 
     applyGravity() {
         // Funktion, die in regelmäßigen Intervallen ausgeführt wird, um die Schwerkraft anzuwenden
@@ -38,12 +42,47 @@ class MovableObject extends DrawableObject {
                 this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
+    // isCollidingJump(mo) {
+    //     return this.y < mo.y + mo.height - mo.offset.top &&
+    //            this.y + this.height - this.offset.bottom > mo.y &&
+    //            this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+    //            this.x + this.offset.left < mo.x + mo.width - mo.offset.right;
+    // }    
+
+    isCollidingJump(mo) {
+        if (this.isAboveGround()) {
+        return this.y < mo.y + mo.height - mo.offset.top && // Überprüft, ob der Charakter oberhalb des Feindes ist
+               this.y + this.height - this.offset.bottom > mo.y && // Überprüft, ob die untere Kante des Charakters über der oberen Kante des Feindes liegt
+               this.x + this.width - this.offset.right > mo.x + mo.offset.left && // Überprüft, ob die rechte Seite des Charakters den linken Rand des Feindes kreuzt
+               this.x + this.offset.left < mo.x + mo.width - mo.offset.right; // Überprüft, ob die linke Seite des Charakters den rechten Rand des Feindes kreuzt
+        }
+    }
+
         // isColliding (mo) { // Methode zur Überprüfung der Kollision basierend auf den Positionen und Abmessungen der Objekte
         //     return this.x + this.width > mo.x &&
         //     this.y + this.height > mo.y &&
         //     this.x < mo.x &&
         //     this.y < mo.y + mo.height;
         // }
+
+
+
+        // hit() {
+        //     // Überprüfen, ob genügend Zeit seit dem letzten Treffer vergangen ist
+        //     let currentTime = new Date().getTime();
+        //     let timePassed = currentTime - this.lastHit;
+        //     if (timePassed > 2000) { // 2000 Millisekunden entsprechen 2 Sekunden
+        //         // Fügen Sie Schaden hinzu und aktualisieren Sie den Zeitstempel des letzten Treffers
+        //         this.energy -= 5;
+        //         if (this.energy < 0) {
+        //             this.energy = 0;
+        //         } else {
+        //             this.lastHit = currentTime;
+        //         }
+        //     }
+        // }
+
+
 
         hit() {     // Reduzieren der Energie des Objekts und Festlegen des Zeitstempels für den letzten Treffer
             this.energy -= 5;

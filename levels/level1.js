@@ -8,6 +8,11 @@ level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),
+        new ChickenSmall(),
+        new Chicken(),
+        new ChickenSmall(),
+        new Chicken(),
+        new ChickenSmall(),
         new Endboss(),
     ],
     [
@@ -43,6 +48,31 @@ level1 = new Level(
         new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 719*4),
         new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 719*4),
 
-    ]
+    ],
+    [
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+    ],
+    [
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+
+    ],
 );
 // }
