@@ -2,7 +2,7 @@ class Level {
     enemies; // Eine Liste von Feinden im Level
     clouds; // Eine Liste von Wolken im Level
     backgroundObject; // Ein Hintergrundobjekt im Level
-    level_end_x = 2600; // Die x-Position, die das Ende des Levels definiert
+    level_end_x = 2900; // Die x-Position, die das Ende des Levels definiert
     coin;
     bottle;
 

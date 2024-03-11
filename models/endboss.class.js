@@ -55,6 +55,8 @@ class Endboss extends MovableObject {
     this.animate(); // Animation des Endbosses starten
   }
 
+  
+
   animate() {
     let i = 0; // Variable zur Verfolgung des aktuellen Bildindex
     setInterval(() => {
@@ -64,6 +66,9 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_ALERT); // Wenn der Endboss im Alarmzustand ist, Alarmbildanimation abspielen
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
+        setInterval (() => {
+          this.moveLeft();
+        }, 100)
       } else {
         this.playAnimation(this.IMAGES_WALK);  // Ansonsten Gehbildanimation abspielen
       }

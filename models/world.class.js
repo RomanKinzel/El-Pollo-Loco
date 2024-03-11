@@ -39,14 +39,14 @@ class World {
 
     checkThrowObjects(){ // Methode zur Überprüfung, ob wurfbare Objekte geworfen werden sollen
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100) // Neue Flasche erzeugen
+            let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100, this.character.otherDirection) // Neue Flasche erzeugen
             this.throwableObjects.push(bottle); // Flasche zur Liste der wurfbaren Objekte hinzufügen
         }
     }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {  // Überprüfen, ob der Charakter mit einem Feind kollidiert
-            if( this.character.isColliding(enemy)) {
+            if( this.character.isColliding(enemy) && !enemy.isDead()) {
              this.character.hit(); // Charakter wird getroffen
              this.statusBarLife.setPercentage(this.character.energy); // Lebensanzeige aktualisieren
              console.log('Collision with Character, energy ', this.character.energy); 
@@ -65,6 +65,7 @@ class World {
                     this.statusBarBottle.increaseEnergy(10); // Anpassung der Energieanzeige
                     const bottleIndex = this.level.bottle.indexOf(bottle);
                     this.level.bottle.splice(bottleIndex, 1); // Entfernen Sie die Münze aus dem Array, nachdem sie gesammelt wurde
+                    console.log('Statusbar Bottle', this.statusBarBottle.energy)
                 }
             })
          });
@@ -86,6 +87,7 @@ class World {
             let enemy = this.level.enemies[i];
             if (this.character.isCollidingJump(enemy) && this.character.speedY < 0) {
                 enemy.hit(); // Feind wird getroffen
+                this.character.jump();
                 this.statusBarEndboss.setPercentage(this.level.enemies[this.level.enemies.length-1].energy); // Lebensanzeige des Endboss aktualisieren
 
                 console.log('Collision with Character, enemy energy ', enemy.energy);
